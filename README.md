@@ -12,10 +12,11 @@ I decided to focus most of my time on getting Task 1 really solid since it felt 
 - Cycle detection that actually deals with business feedback loops (like pricing→demand→volume→costs→pricing)
 - Demo with energy price scenarios that STK would actually face
 
-**📋 Designed but not coded (Tasks 3-4):**
-- Natural language processing approach using specialized AI tools
-- Business user interface design 
-- Detailed my thinking process but didn't have time to implement
+**📋 Designed and Documented (Tasks 2, 3-4):**
+- **Task 2:** Computational performance optimization with caching, parallelization, and benchmarking strategies
+- **Task 3:** Natural language processing approach using specialized AI tools
+- **Task 4:** Business user interface design 
+- Detailed my thinking process and provided implementation roadmaps
 
 ## My Technical Decisions
 
@@ -26,6 +27,9 @@ I needed something that could orchestrate: dependency resolution → cycle detec
 
 **The cycle resolution challenge:**
 This was the most interesting technical problem. Most dependency systems just detect cycles and fail. But STK's business has legitimate feedback loops that need to converge on realistic values. I implemented iterative resolution using business logic - for example, if there's a pricing feedback loop, use seed values and iterate until the system stabilizes at market equilibrium.
+
+**The performance optimization challenge (Task 2):**
+After building Task 1, I realized the computational efficiency was the next major hurdle. STK managers need scenarios in seconds, not minutes. I designed a progressive approach: in-memory computation with intelligent caching, dependency-aware parallel processing, and business-relevant performance benchmarking.
 
 **What I learned about industrial modeling:**
 Working through STK's scenarios made me realize how much domain knowledge goes into these systems. Energy cost isn't just price × volume - there are efficiency factors, overhead allocations, capacity constraints. The technical challenge isn't just graph algorithms; it's encoding real business logic correctly.
@@ -52,23 +56,25 @@ The interesting part is how they interact - energy price increases don't just ad
 
 ## What Works (and what doesn't)
 
-**Works well:**
+**✅ Works well:**
 - Simulates realistic STK scenarios correctly
 - Detects and resolves the pricing feedback loops I modeled
 - Energy price volatility analysis shows expected business impact
 - LangGraph workflow handles the complexity cleanly
 
-**Known limitations:**
+**⚠️ Known limitations:**
 - Only tested with relatively simple cycles (complex multi-loop scenarios might not converge)
 - Business logic is based on my assumptions about manufacturing economics, not validated data
 - No real persistence beyond demo scenarios
 - Dependency resolution is deterministic (real business has uncertainty)
 
-**If I had more time:** I'd focus on the natural language processing piece (Task 3). I think that's where the real business value would be - letting STK stakeholders describe their business logic in natural language and automatically mapping it to the simulation model.
+**🔧 If I had more time:** I'd focus on implementing the performance optimizations from Task 2 and the natural language processing piece (Task 3). I think that's where the real business value would be - letting STK stakeholders describe their business logic in natural language and getting fast, interactive responses.
 
-## My Approach to Tasks 3 & 4
+## My Approach to Tasks 2, 3 & 4
 
 Since I couldn't implement everything, I focused on documenting my thinking:
+
+**Task 2 (Execution & Caching):** I designed a progressive computational architecture starting with in-memory processing, intelligent caching with dependency-aware invalidation, and parallel processing for independent calculations. The key insight was that business usage patterns (repeated similar scenarios) matter more than raw computational speed.
 
 **Task 3 (Natural Language to Model):** I designed an approach using AI tools with domain expertise to extract business relationships from conversations and map them to STK's Block/Attribute structure. The key insight was handling ambiguity resolution - when someone says "energy affects costs," what exactly does that mean quantitatively?
 
@@ -83,8 +89,15 @@ task1_solution/     # The actual working implementation
 ├── run_task1_demo.py    # Quick demo runner
 └── [tests and docs]
 
+task2_solution/     # My computational performance approach
+└── TASK2_SOLUTION.md   # Caching, parallelization, and benchmarking strategy
+
 task3_solution/     # My approach to natural language processing
+└── TASK3_SOLUTION.md   # AI-based knowledge extraction approach
+
 task4_solution/     # My UX design thinking  
+└── TASK4_SOLUTION.md   # Business-first interface design
+
 documentation/      # How all the tasks connect together
 ```
 
@@ -94,13 +107,14 @@ I tend to focus on getting the core problem really solid rather than building ma
 
 I'm genuinely curious about industrial decision-making systems - the technical challenges are interesting, but what makes them hard is encoding real business logic correctly. STK's energy cost modeling taught me a lot about how manufacturing economics actually work.
 
-If you want to see my detailed technical documentation, it's in `task1_solution/TASK1_SOLUTION.md`. For my thinking on the other tasks, check `task3_solution/` and `task4_solution/`.
+If you want to see my detailed technical documentation, it's in `task1_solution/TASK1_SOLUTION.md`. For my thinking on the other tasks, check `task2_solution/`, `task3_solution/`, and `task4_solution/`.
 
 ## Next Steps I'd Take
 
 1. **Validate the business model** - Test with real manufacturing data to see if my assumptions about cost structures and market dynamics are realistic
-2. **Implement the NLP pipeline** - The AI-based approach I designed would let business users contribute domain knowledge in natural language
-3. **Add uncertainty modeling** - Real business planning deals with ranges and probabilities, not point estimates
-4. **Build the conversational interface** - Make it actually usable for non-technical stakeholders
+2. **Implement the performance optimizations** - The caching and parallelization strategies I designed for Task 2 would make the system much more responsive for business users
+3. **Implement the NLP pipeline** - The AI-based approach I designed would let business users contribute domain knowledge in natural language
+4. **Add uncertainty modeling** - Real business planning deals with ranges and probabilities, not point estimates
+5. **Build the conversational interface** - Make it actually usable for non-technical stakeholders
 
 Thanks for the interesting challenge! The STK scenario felt like a realistic industrial problem rather than a toy example. 

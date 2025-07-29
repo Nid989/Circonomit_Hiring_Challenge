@@ -40,26 +40,45 @@ I modeled STK as three interconnected business areas that actually affect each o
 
 ```mermaid
 graph TD
-    subgraph Supply["Supply Chain Block"]
-        EP[Energy Price: €0.15/kWh]
-        MC[Material Cost: €25K]
-        LC[Labor Cost: €15K]
-        CO2[CO₂ Tariffs]
+    %% Supply Chain Block
+    EP[Energy Price<br/>&euro;0.15/kWh]
+    MC[Material Cost<br/>&euro;25K]
+    LC[Labor Cost<br/>&euro;15K]
+    CO2[CO₂ Tariffs]
+
+    %% Production Block
+    PV[Production Volume<br/>1500 units]
+    EU[Energy per Unit<br/>2.5 kWh]
+    UC[Unit Cost<br/>calculated]
+    OH[Overhead<br/>15%]
+
+    %% Market Block
+    SP[Selling Price<br/>cost + 20%]
+    MD[Market Demand<br/>elastic]
+    PM[Profit Margin<br/>calculated]
+
+    %% Grouping nodes using subgraphs (clickable in some renderers)
+    subgraph Supply_Chain [Supply Chain Block]
+        EP
+        MC
+        LC
+        CO2
     end
-    
-    subgraph Production["Production Block"] 
-        PV[Production Volume: 1500 units]
-        EU[Energy per Unit: 2.5 kWh]
-        UC[Unit Cost: calculated]
-        OH[Overhead: 15%]
+
+    subgraph Production [Production Block]
+        PV
+        EU
+        UC
+        OH
     end
-    
-    subgraph Market["Market Block"]
-        SP[Selling Price: cost + 20%]
-        MD[Market Demand: elastic]
-        PM[Profit Margin: calculated]
+
+    subgraph Market [Market Block]
+        SP
+        MD
+        PM
     end
-    
+
+    %% Connections
     EP --> UC
     MC --> UC
     LC --> UC
@@ -67,7 +86,8 @@ graph TD
     SP --> MD
     MD --> PV
     PV --> UC
-    
+
+    %% Highlight key nodes
     style UC fill:#ffebee
     style SP fill:#fff3e0
     style MD fill:#e8f5e8
